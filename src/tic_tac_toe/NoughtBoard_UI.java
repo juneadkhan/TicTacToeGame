@@ -17,7 +17,7 @@ public class NoughtBoard_UI extends JPanel implements NoughtBoard {
 	private static final Color DEFAULT_BACKGROUND_LIGHT = new Color(0.8f, 0.8f, 0.8f);
 	private static final Color DEFAULT_BACKGROUND_DARK = new Color(0.5f, 0.5f, 0.5f);
 
-	private static final Color DEFAULT_SPOT_COLOR = Color.BLACK;
+	private static final Color DEFAULT_COLOR = Color.BLACK;
 	private static final Color DEFAULT_HIGHLIGHT_COLOR = Color.YELLOW;
 
 	// Effectively a matrix of positions for the naughts. 
