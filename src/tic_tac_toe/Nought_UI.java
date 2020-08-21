@@ -1,4 +1,5 @@
 package tic_tac_toe;
+
 import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
@@ -14,36 +15,51 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 
+public class Nought_UI extends JPanel implements Nought {
 
-public class Nought_UI_Element extends JPanel implements Nought {
-
-	//Coordinates for Nought_UI_Element Object
+	// Coordinates for Nought_UI_Element Object
 	private int _x;
 	private int _y;
-	
-	//Colours for Nought_UI_Element Object
+
+	// Colours for Nought_UI_Element Object
 	private Color _baseColour;
 	private Color _highlightColour;
-	
-	//Boolean Control Variables
+
+	// Boolean Control Variables
 	private boolean _isEmpty;
 	private boolean _isHighlighted;
-	
-	
-	//Getter for X Component
-	@Override
+
+	// Constructor for Nought_UI_Element
+	public Nought_UI(int x, int y, Color backgroundColour, Color originalColour,
+			Color highlightColour) {
+
+		_x = x;
+		_y = y;
+
+		_baseColour = originalColour;
+		_highlightColour = highlightColour;
+
+		_isEmpty = true;
+		_isHighlighted = false;
+
+		// Sets background to the input backgroundColour
+		setBackground(backgroundColour);
+
+	}
+
+	// Getter for X Component
 	public int getX() {
-		
+
 		return _x;
 	}
 
-	//Getter for Y Component
-	@Override
+	// Getter for Y Component
 	public int getY() {
-		
+
 		return _y;
 	}
 
+	// Boolean Control Variables Getters
 	public boolean isHighlighted() {
 		return _isHighlighted;
 	}
