@@ -7,6 +7,9 @@ public interface Nought {
 	int getX();
 	int getY();
 	
+	public boolean isHighlighted();
+	public boolean isEmpty();
+
 	
 	
 }
