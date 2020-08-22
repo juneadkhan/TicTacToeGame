@@ -12,6 +12,9 @@ public interface Nought {
 	public boolean isHighlighted();
 	public boolean isEmpty();
 	Color getColor();
+	
+	void addListener(Listener l);
+	void removeListener(Listener l);
 
 	default String getCoordString() {
 		return "(" + getX() + ", " + getY() + ")";

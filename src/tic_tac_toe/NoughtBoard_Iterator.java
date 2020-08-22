@@ -2,7 +2,7 @@ package tic_tac_toe;
 
 import java.util.Iterator;
 
-public class NoughtBoard_Iterator {
+public class NoughtBoard_Iterator implements Iterator<Nought> {
 	private NoughtBoard _board;
 	int _x;
 	int _y;
