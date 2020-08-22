@@ -180,7 +180,7 @@ public class Nought_UI extends JPanel implements Nought, MouseListener {
 		}).start();
 
 	}
-	//Overrides the paintComponent method of JPanel
+	//Overrides the paintComponent method of JPanel.
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
