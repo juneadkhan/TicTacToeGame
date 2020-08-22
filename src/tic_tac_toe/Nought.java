@@ -24,7 +24,7 @@ public interface Nought {
 		}
 	}
 	
-	default void toggleSpot() {
+	default void toggle() {
 		if (isEmpty()) {
 			set();
 		} else {

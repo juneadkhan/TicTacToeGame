@@ -69,7 +69,7 @@ public GameWidget_Logic() {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+
 		resetGame();
 		
 	}
@@ -77,10 +77,83 @@ public GameWidget_Logic() {
 
 	@Override
 	public void clicked(Nought n) {
-		// TODO Auto-generated method stub
+
+		// If the Game has already been won, Nothing will be done.
+		if (_gameWon) {
+			return;
+		}
+
+		// Creates local variables for players
+		String player_name = null;
+		String next_player_name = null;
+		Color player_color = null;
+
+		// Game Logic
+
+		// Checks to see who next player is and updates other variables accordingly
+		if (_nextPlayer == Player.BLACK) {
+			player_color = Color.BLACK;
+			player_name = "Black";
+			next_player_name = "White";
+			_nextPlayer = Player.WHITE;
+		} else {
+			player_color = Color.WHITE;
+			player_name = "White";
+			next_player_name = "Black";
+			_nextPlayer = Player.BLACK;
+		}
 		
+		// Makes adjustments to the Nought if Empty
+		// Set it to the colour of the player who clicked it and toggle it.
+		if (n.isEmpty()) {
+			n.setColour(player_color);
+			n.toggle();
+
+		} else {
+
+			// Otherwise adjust GameLogic accordingly
+			if (_nextPlayer == Player.BLACK) {
+				player_color = Color.WHITE;
+				player_name = "White";
+				next_player_name = "White";
+				_nextPlayer = Player.WHITE;
+
+			} else {
+
+				player_color = Color.BLACK;
+				player_name = "Black";
+				next_player_name = "Black";
+				_nextPlayer = Player.BLACK;
+
+			}
+		}
+		
+		//TODO Need to check if Win is achieved at some point here
+
+		if (n.isEmpty()) {
+			_message.setText(next_player_name + " to play.");
+		} else {
+			if (_gameWon) {
+				_message.setText(player_name + " wins!");
+			} else {
+
+				if (checkDraw() && (_gameWon == false)) {
+					_message.setText(" Draw game.");
+
+				} else {
+
+					_message.setText(next_player_name + " to play.");
+
+				}
+			}
+		}
 	}
 
+
+	private boolean checkDraw() {
+
+		return false;
+	}
 
 	@Override
 	public void entered(Nought n) {
