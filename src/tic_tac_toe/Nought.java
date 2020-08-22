@@ -23,7 +23,16 @@ public interface Nought {
 			highlight();
 		}
 	}
+	
+	default void toggleSpot() {
+		if (isEmpty()) {
+			set();
+		} else {
+			clear();
+		}
+	}
 
+	void set();
 	default String getCoordString() {
 		return "(" + getX() + ", " + getY() + ")";
 	}
