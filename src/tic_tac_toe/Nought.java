@@ -19,6 +19,8 @@ public interface Nought {
 	default String getCoordString() {
 		return "(" + getX() + ", " + getY() + ")";
 	}
+	void clear();
+	void setColor(Color colour);
 	
 	
 }

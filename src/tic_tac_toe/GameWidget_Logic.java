@@ -1,6 +1,7 @@
 package tic_tac_toe;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,11 +10,17 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class GameWidget_Logic  extends JPanel implements ActionListener, Listener{
+	
+	private enum Player {BLACK, WHITE};
+
 
 	private NoughtBoard_UI _board;		//This defines the playing area
 	private JLabel _message;		//Creates a JLabel UI element for message to the user
 	private boolean _gameWon; 		//Indicates if the game has been won?
 	private boolean _gameDraw;		//Indicates if the game has been drawn
+	
+	private Player _nextPlayer;	/* Identifies who has next turn. */
+
 
 public GameWidget_Logic() {
 		
@@ -41,6 +48,24 @@ public GameWidget_Logic() {
 
 	}
 
+//Method for Resetting the Game completely
+	private void resetGame() {
+
+		// Iterates through every Nought in the board and clears it. Sets colour to
+		// black.
+		for (Nought s : _board) {
+			s.clear();
+			s.setColor(Color.BLACK);
+		}
+
+		// Resets GameLogic Boolean fields.
+		_gameWon = false;
+		_gameDraw = false;
+		_nextPlayer = Player.WHITE;
+
+		// Reset Message to Default
+		_message.setText("Welcome to TicTacToe. White to play");
+	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
