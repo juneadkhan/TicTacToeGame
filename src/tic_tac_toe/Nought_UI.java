@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.BorderFactory;
 
-public class Nought_UI extends JPanel implements Nought {
+public class Nought_UI extends JPanel implements Nought, MouseListener {
 
 	// Coordinates for Nought_UI_Element Object
 	private int _x;
@@ -28,10 +28,15 @@ public class Nought_UI extends JPanel implements Nought {
 	// Boolean Control Variables
 	private boolean _isEmpty;
 	private boolean _isHighlighted;
+	
+	
+	private NoughtBoard _board;
+	private List<Listener> _listeners;
+
 
 	// Constructor for Nought_UI_Element
 	public Nought_UI(int x, int y, Color backgroundColour, Color originalColour,
-			Color highlightColour) {
+			Color highlightColour, NoughtBoard board) {
 
 		_x = x;
 		_y = y;
@@ -41,6 +46,13 @@ public class Nought_UI extends JPanel implements Nought {
 
 		_isEmpty = true;
 		_isHighlighted = false;
+		
+		_board = board;
+		
+		_listeners = new ArrayList<Listener>();
+		
+		addMouseListener(this);
+
 
 		// Sets background to the input backgroundColour
 		setBackground(backgroundColour);
@@ -67,5 +79,36 @@ public class Nought_UI extends JPanel implements Nought {
 	public boolean isEmpty() {
 		return _isEmpty;
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 }
