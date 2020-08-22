@@ -150,9 +150,45 @@ public GameWidget_Logic() {
 	}
 
 
+	// Method that checks if the Game is in a DRAW state
 	private boolean checkDraw() {
 
+		// Setting up local variables to count the number of respective pieces
+		int countBlacks = 0;
+		int countWhites = 0;
+
+		// Iterates through and counts
+		for (int x = 0; x < 3; x++) {
+
+			for (int y = 0; y < 3; y++) {
+
+				if (_board.getAt(x, y).getColor() == Color.WHITE) {
+					countWhites++;
+				}
+
+				else if (_board.getAt(x, y).getColor() == Color.BLACK && (_board.getAt(x, y).isEmpty() == false)) {
+
+					countBlacks++;
+				}
+
+			}
+
+			// TODO For sytemLog, remove at some point.
+			System.out.println("Blacks " + countBlacks);
+			System.out.println("Whites " + countWhites);
+
+			if (countWhites == 5 && countBlacks == 4) {
+
+				_gameDraw = true;
+				_gameWon = false;
+
+				return true;
+
+			}
+
+		}
 		return false;
+
 	}
 
 	@Override
