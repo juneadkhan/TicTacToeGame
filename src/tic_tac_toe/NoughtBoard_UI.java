@@ -23,6 +23,24 @@ public class NoughtBoard_UI extends JPanel implements NoughtBoard {
 	// Effectively a matrix of positions for the naughts. 
 	// The 2D-Array acts as the board.
 	private Nought[][] _board;
+	
+	//Constructor for NoughtBoard_UI
+	public NoughtBoard_UI(int width, int height) {
+
+		setLayout(new GridLayout(height, width));
+		_board = new Nought[width][height];
+		
+		Dimension preferred_size = new Dimension(DEFAULT_SCREEN_WIDTH/width, DEFAULT_SCREEN_HEIGHT/height);
+		
+		for (int y=0; y<height; y++) {
+			for (int x=0; x<width; x++) {
+				Color backgroundColour = ((x+y)%2 == 0) ? DEFAULT_BACKGROUND_LIGHT : DEFAULT_COLOR;
+				_board[x][y] = new Nought_UI(x, y, backgroundColour, DEFAULT_COLOR, DEFAULT_HIGHLIGHT_COLOR, this);
+				((Nought_UI)_board[x][y]).setPreferredSize(preferred_size);
+				add(((Nought_UI) _board[x][y]));
+			}			
+		}
+	}
 
 	//Getters
 	public int getWidth() {
