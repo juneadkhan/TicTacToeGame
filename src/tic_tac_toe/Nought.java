@@ -13,6 +13,9 @@ public interface Nought {
 	public boolean isEmpty();
 	Color getColor();
 
+	default String getCoordString() {
+		return "(" + getX() + ", " + getY() + ")";
+	}
 	
 	
 }
