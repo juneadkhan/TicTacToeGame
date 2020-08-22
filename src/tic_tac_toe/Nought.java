@@ -1,5 +1,7 @@
 package tic_tac_toe;
 
+import java.awt.Color;
+
 //A Nought represents an individual piece
 public interface Nought {
 
@@ -9,6 +11,7 @@ public interface Nought {
 	
 	public boolean isHighlighted();
 	public boolean isEmpty();
+	Color getColor();
 
 	
 	
