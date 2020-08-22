@@ -1,8 +1,10 @@
 package tic_tac_toe;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -12,6 +14,32 @@ public class GameWidget_Logic  extends JPanel implements ActionListener, Listene
 	private JLabel _message;		//Creates a JLabel UI element for message to the user
 	private boolean _gameWon; 		//Indicates if the game has been won?
 	private boolean _gameDraw;		//Indicates if the game has been drawn
+
+public GameWidget_Logic() {
+		
+		//Creates the NoughtBoard_UI Element and message on JLabel
+		_board = new NoughtBoard_UI(3,3);
+		_message = new JLabel();
+		
+		setLayout(new BorderLayout());
+		add(_board, BorderLayout.CENTER); //Sets the board to the center
+
+		//This creates a subpanel for the Reset Button and corresponding message
+		JPanel resetMessagePanel = new JPanel();
+		resetMessagePanel.setLayout(new BorderLayout());
+
+		//This defines the Reset Button
+		JButton reset_button = new JButton("Restart");
+		reset_button.addActionListener(this);
+		resetMessagePanel.add(reset_button, BorderLayout.EAST);
+		resetMessagePanel.add(_message, BorderLayout.CENTER);
+		
+		//Ensures the reset panel is at the bottom of the layout
+		add(resetMessagePanel, BorderLayout.SOUTH);
+
+		_board.addListener(this);
+
+	}
 
 	
 	@Override
