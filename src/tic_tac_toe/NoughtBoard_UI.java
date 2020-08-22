@@ -15,7 +15,7 @@ public class NoughtBoard_UI extends JPanel implements NoughtBoard {
 	private static final int DEFAULT_SCREEN_WIDTH = 500;
 	private static final int DEFAULT_SCREEN_HEIGHT = 500;
 	private static final Color DEFAULT_BACKGROUND_LIGHT = new Color(0.8f, 0.8f, 0.8f);
-	private static final Color DEFAULT_BACKGROUND_DARK = new Color(0.5f, 0.5f, 0.5f);
+	private static final Color DEFAULT_BACKGROUND_DARK = new Color(0.8f, 0.8f, 0.8f); //EDITED was 0.5f
 
 	private static final Color DEFAULT_COLOR = Color.BLACK;
 	private static final Color DEFAULT_HIGHLIGHT_COLOR = Color.YELLOW;
@@ -27,6 +27,10 @@ public class NoughtBoard_UI extends JPanel implements NoughtBoard {
 	//Constructor for NoughtBoard_UI
 	public NoughtBoard_UI(int width, int height) {
 
+		if (width < 1 || height < 1 || width > 50 || height > 50) {
+			throw new IllegalArgumentException("Illegal spot board geometry");
+		}
+		
 		setLayout(new GridLayout(height, width));
 		_board = new Nought[width][height];
 		
@@ -34,7 +38,7 @@ public class NoughtBoard_UI extends JPanel implements NoughtBoard {
 		
 		for (int y=0; y<height; y++) {
 			for (int x=0; x<width; x++) {
-				Color backgroundColour = ((x+y)%2 == 0) ? DEFAULT_BACKGROUND_LIGHT : DEFAULT_COLOR;
+				Color backgroundColour = ((x+y)%2 == 0) ? DEFAULT_BACKGROUND_LIGHT : DEFAULT_BACKGROUND_DARK;
 				_board[x][y] = new Nought_UI(x, y, backgroundColour, DEFAULT_COLOR, DEFAULT_HIGHLIGHT_COLOR, this);
 				((Nought_UI)_board[x][y]).setPreferredSize(preferred_size);
 				add(((Nought_UI) _board[x][y]));
@@ -54,7 +58,9 @@ public class NoughtBoard_UI extends JPanel implements NoughtBoard {
 	}
 
 	public Nought getAt(int x, int y) {
-
+		if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
+			throw new IllegalArgumentException("Illegal spot coordinates");
+		}
 		return _board[x][y];
 	}
 

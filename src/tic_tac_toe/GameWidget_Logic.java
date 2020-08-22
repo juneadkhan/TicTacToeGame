@@ -46,6 +46,7 @@ public GameWidget_Logic() {
 
 		_board.addListener(this);
 
+		resetGame();
 	}
 
 //Method for Resetting the Game completely
@@ -73,6 +74,22 @@ public GameWidget_Logic() {
 		resetGame();
 		
 	}
+	
+	@Override
+	public void entered(Nought n) {
+		
+		if (_gameWon) {
+			return;
+		}
+		n.highlight();
+		
+	}
+	
+	@Override
+	public void exited(Nought n) {
+		n.unhighlight();		
+	}
+	
 
 
 	@Override
@@ -128,8 +145,8 @@ public GameWidget_Logic() {
 			}
 		}
 		
-		//TODO Need to check if Win is achieved at some point here
-
+		checkWin();
+				
 		if (n.isEmpty()) {
 			_message.setText(next_player_name + " to play.");
 		} else {
@@ -190,22 +207,151 @@ public GameWidget_Logic() {
 		return false;
 
 	}
-
-	@Override
-	public void entered(Nought n) {
+	
+public boolean checkWin() {
 		
+	//If the game has already been WON, do nothing.
 		if (_gameWon) {
-			return;
+			return true;
 		}
-		n.highlight();
 		
+		//LOGIC FOR DETERMINING STRAIGHT LINE WIN
+
+		int countBlacks = 0;
+		int countWhites = 0;
+		
+		for (int x = 0; x < 3; x++) {
+			
+			countBlacks = 0;
+			countWhites = 0;
+			
+			for (int y = 0; y < 3; y++) {
+				
+				if (_board.getAt(x, y).getColor() == Color.WHITE) {
+					//TODO For DEBUGGING Purposes - remove on completiton
+					System.out.println("Grid Coordinates = X: " + _board.getAt(x, y).getX()
+							+ " Y: " + _board.getAt(x, y).getY());
+					countWhites++;
+				}
+				
+				else if (_board.getAt(x, y).getColor() == Color.BLACK && (_board.getAt(x, y).isEmpty() == false)) {
+					System.out.println("Grid Coordinates = X: " + _board.getAt(x, y).getX()
+							+ " Y: " + _board.getAt(x, y).getY());
+					countBlacks++;
+				}
+				
+			}
+			
+			//TODO FOR DEBUGGING PURPOSES - Remove on Completion
+			System.out.println("Blacks " + countBlacks);
+			System.out.println("Whites " + countWhites);
+			
+			
+			if (countWhites == 3 || countBlacks == 3) {
+				
+				System.out.println("Straight Line, Whites = " + countWhites
+						+ " Blacks: " + countBlacks);
+				_gameWon = true;
+
+				return true;				
+			}
+		}
+
+		//LOGIC FOR DETERMINING STRAIGHT LINE WIN
+		countBlacks = 0;
+		countWhites = 0;
+		
+		for (int y = 0; y < 3; y++) {
+			
+			countBlacks = 0;
+			countWhites = 0;
+
+			for (int x = 0; x < 3; x++) {
+				
+				if (_board.getAt(x, y).getColor() == Color.WHITE  && (_board.getAt(x, y).isEmpty() == false)) {
+					System.out.println("Grid Coordinates = X: " + _board.getAt(x, y).getX()
+							+ " Y: " + _board.getAt(x, y).getY());
+					countWhites++;
+				}
+				
+				else if (_board.getAt(x, y).getColor() == Color.BLACK && (_board.getAt(x, y).isEmpty() == false)) {
+					System.out.println("Grid Coordinates = X: " + _board.getAt(x, y).getX()
+							+ " Y: " + _board.getAt(x, y).getY());
+					countBlacks++;
+				}
+				
+			}			
+			
+			System.out.println("Blacks " + countBlacks);
+			System.out.println("Whites " + countWhites);
+			
+			if (countWhites == 3 || countBlacks == 3) {
+				System.out.println("Straight Line, Whites = " + countWhites
+						+ " Blacks: " + countBlacks);
+				_gameWon = true;
+
+				return true;
+				
+			}
+			
+			
+		
+		}
+		
+		countBlacks = 0;
+		countWhites = 0;
+		
+		
+		//LOGIC FOR DETERMINING DIAGONAL RIGHT WIN
+		for (int i = 0, j = 2; i < 3; i++, j--) {
+			
+			System.out.println("Spot Colour at Position: " + _board.getAt(i, j).getX()
+					+ " Y: " + _board.getAt(i, j).getY() + "  is: "
+				+ _board.getAt(i, j).getColor());
+
+			
+			if (_board.getAt(i, j).getColor() == Color.WHITE  && (_board.getAt(i, j).isEmpty() == false)) {
+				System.out.println("Grid Coordinates = X: " + _board.getAt(i, j).getX()
+						+ " Y: " + _board.getAt(i, j).getY());
+				countWhites++;
+			}
+			
+			else if (_board.getAt(i, j).getColor() == Color.BLACK && (_board.getAt(i, j).isEmpty() == false)) {
+				countBlacks++;
+			}
+		}
+		
+		if (countWhites == 3 || countBlacks == 3) {
+			
+			System.out.println("Diagonal Right, Whites = " + countWhites
+					+ " Blacks: " + countBlacks);
+			_gameWon = true;
+			return true;
+		} 
+		
+		countBlacks = 0;
+		countWhites = 0;
+		
+		//LOGIC FOR DETERMINING DIAGONAL LEFT WIN
+		for (int i = 3 - 1, j = 3 - 1; i >= 0; i--, j--) {
+			if (_board.getAt(i, j).getColor() == Color.WHITE  && (_board.getAt(i, j).isEmpty() == false)) {
+				countWhites++;
+			}
+			else if (_board.getAt(i, j).getColor() == Color.BLACK && (_board.getAt(i, j).isEmpty() == false)) {
+				countBlacks++;
+		}
+		}
+		
+		if (countBlacks == 3 || countWhites == 3) {
+			System.out.println("Diagonal Left, Whites = " + countWhites
+					+ " Blacks: " + countBlacks);
+			_gameWon = true;
+			return true;
+		}
+		
+		return false;
+
 	}
-	
-	@Override
-	public void exited(Nought n) {
-		n.unhighlight();		
-	}
-	
 	
 
 }

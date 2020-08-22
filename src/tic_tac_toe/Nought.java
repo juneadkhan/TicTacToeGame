@@ -9,9 +9,9 @@ public interface Nought {
 	int getX();
 	int getY();
 	
-	public boolean isHighlighted();
 	public boolean isEmpty();
-	Color getColor();
+	NoughtBoard getBoard();
+
 	
 	void addListener(Listener l);
 	void removeListener(Listener l);
@@ -32,14 +32,27 @@ public interface Nought {
 		}
 	}
 
-	void set();
 	default String getCoordString() {
 		return "(" + getX() + ", " + getY() + ")";
 	}
+	void set();
 	void clear();
+	
 	void setColour(Color colour);
+	Color getColor();
+
 	void highlight();
 	void unhighlight();
+	
+	void setBackground(Color c);
+	Color getBackground();
+	
+	void setHighlight(Color c);
+	Color getHighlight();
+	
+	public boolean isHighlighted();
+
+
 	
 	
 }
