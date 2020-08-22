@@ -79,10 +79,53 @@ public class Nought_UI extends JPanel implements Nought, MouseListener {
 	public boolean isEmpty() {
 		return _isEmpty;
 	}
+	
+	//Sets a Nought to being ACTIVE
+	public void set() {
+		_isEmpty = false;
+		trigger_update();
+	}
 
+	//Clears a Nought
+	public void clear() {
+		_isEmpty = true;
+		trigger_update();
+	}
+	
+	//Sets the Highlight of a Nought to be ACTIVE
+	public void highlight() {
+		_isHighlighted = true;
+		trigger_update();
+	}
+
+	//Sets the Highlight of a Nought to be INACTIVE
+	public void unhighlight() {
+		_isHighlighted = false;
+		trigger_update();
+	}
+	
+	//Sets the Colour of a Nought to the input parameter c
+	public void setColour(Color c) {		
+		_baseColour = c;
+		trigger_update();	
+	}
+	
+	//Adds a Listener
+	public void addListener(Listener l) {
+		_listeners.add(l);
+	}
+	
+	//Removes a Listener
+	public void removeListener(Listener l) {
+		_listeners.remove(l);
+	}
+
+	//mouse Control Methods
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		for (Listener s : _listeners) {
+			s.clicked(this);
+		}
 		
 	}
 
@@ -100,14 +143,33 @@ public class Nought_UI extends JPanel implements Nought, MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		for (Listener s : _listeners) {
+			s.entered(this);
+		}		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+
+		for (Listener s : _listeners) {
+			s.exited(this);
+		}
+	}
+	
+	//Trigger Update Method
+	private void trigger_update() {		
+		repaint();
 		
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					Thread.sleep(50);
+				} catch (InterruptedException e) {
+				}
+				repaint();
+			}
+		}).start();
+
 	}
 	
 
