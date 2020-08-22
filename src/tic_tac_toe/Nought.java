@@ -15,6 +15,14 @@ public interface Nought {
 	
 	void addListener(Listener l);
 	void removeListener(Listener l);
+	
+	default void toggleHighlight() {
+		if (isHighlighted()) {
+			unhighlight();
+		} else {
+			highlight();
+		}
+	}
 
 	default String getCoordString() {
 		return "(" + getX() + ", " + getY() + ")";
