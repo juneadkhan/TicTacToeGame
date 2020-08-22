@@ -20,7 +20,9 @@ public interface Nought {
 		return "(" + getX() + ", " + getY() + ")";
 	}
 	void clear();
-	void setColor(Color colour);
+	void setColour(Color colour);
+	void highlight();
+	void unhighlight();
 	
 	
 }

@@ -55,7 +55,7 @@ public GameWidget_Logic() {
 		// black.
 		for (Nought s : _board) {
 			s.clear();
-			s.setColor(Color.BLACK);
+			s.setColour(Color.BLACK);
 		}
 
 		// Resets GameLogic Boolean fields.
@@ -70,6 +70,7 @@ public GameWidget_Logic() {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		resetGame();
 		
 	}
 
@@ -83,15 +84,17 @@ public GameWidget_Logic() {
 
 	@Override
 	public void entered(Nought n) {
-		// TODO Auto-generated method stub
+		
+		if (_gameWon) {
+			return;
+		}
+		n.highlight();
 		
 	}
-
-
+	
 	@Override
 	public void exited(Nought n) {
-		// TODO Auto-generated method stub
-		
+		n.unhighlight();		
 	}
 	
 	

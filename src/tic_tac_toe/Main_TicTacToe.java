@@ -20,6 +20,8 @@ public class Main_TicTacToe {;
 		topPanel.setLayout(new BorderLayout());
 		mainWindow_UI.setContentPane(topPanel);
 
+		GameWidget_Logic mainWidget = new GameWidget_Logic();
+		topPanel.add(mainWidget, BorderLayout.CENTER);
 	
 		//This packs the main frame and sets it to be visible
 		mainWindow_UI.pack();
