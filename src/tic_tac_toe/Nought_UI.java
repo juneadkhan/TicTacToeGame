@@ -38,8 +38,6 @@ public class Nought_UI extends JPanel implements Nought, MouseListener {
 	public Nought_UI(int x, int y, Color backgroundColour, Color originalColour,
 			Color highlightColour, NoughtBoard board) {
 
-		setBackground(backgroundColour);
-
 		_x = x;
 		_y = y;
 
@@ -57,7 +55,32 @@ public class Nought_UI extends JPanel implements Nought, MouseListener {
 
 
 		// Sets background to the input backgroundColour
+		setBackground(backgroundColour);
 
+	}
+
+	public Nought_UI(Color backgroundColour, Color originalColour, Color highlightColour, NoughtBoard_UI board,
+			int x, int y) {
+		
+		setBackground(backgroundColour);
+
+		_x = x;
+		_y = y;
+
+		_baseColour = originalColour;
+		_highlightColour = highlightColour;
+
+		_isEmpty = true;
+		_isHighlighted = false;
+		
+		_board = board;
+		
+		_listeners = new ArrayList<Listener>();
+		
+		addMouseListener(this);
+
+		
+		// TODO Auto-generated constructor stub
 	}
 
 	// Getter for X Component
@@ -184,7 +207,7 @@ public class Nought_UI extends JPanel implements Nought, MouseListener {
 	}
 	
 	//Trigger Update Method
-	private void trigger_update() {		
+	public void trigger_update() {		
 		repaint();
 		
 		new Thread(new Runnable() {

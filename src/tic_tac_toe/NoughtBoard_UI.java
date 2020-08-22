@@ -15,7 +15,7 @@ public class NoughtBoard_UI extends JPanel implements NoughtBoard {
 	private static final int DEFAULT_SCREEN_WIDTH = 500;
 	private static final int DEFAULT_SCREEN_HEIGHT = 500;
 	private static final Color DEFAULT_BACKGROUND_LIGHT = new Color(0.8f, 0.8f, 0.8f);
-	private static final Color DEFAULT_BACKGROUND_DARK = new Color(0.8f, 0.8f, 0.8f); //EDITED was 0.5f
+	private static final Color DEFAULT_BACKGROUND_DARK = new Color(0.5f, 0.5f, 0.5f); //EDITED was 0.5f
 
 	private static final Color DEFAULT_COLOR = Color.BLACK;
 	private static final Color DEFAULT_HIGHLIGHT_COLOR = Color.YELLOW;
@@ -47,45 +47,51 @@ public class NoughtBoard_UI extends JPanel implements NoughtBoard {
 	}
 
 	//Getters
-	public int getWidth() {
-
+	@Override
+	public int getSpotWidth() {
 		return _board.length;
 	}
-
-	public int getHeight() {
-
+	
+	@Override
+	public int getSpotHeight() {
 		return _board[0].length;
 	}
 
-	public Nought getAt(int x, int y) {
-		if (x < 0 || x >= getWidth() || y < 0 || y >= getHeight()) {
+	// Lookup method for Spot at position (x,y)
+	
+	@Override
+	public Nought getSpotAt(int x, int y) {
+		if (x < 0 || x >= getSpotWidth() || y < 0 || y >= getSpotHeight()) {
 			throw new IllegalArgumentException("Illegal spot coordinates");
 		}
+		
 		return _board[x][y];
 	}
-
-
-	public void addListener(Listener listener) {
-		for (int x=0; x<getWidth(); x++) {
-			for (int y=0; y<getHeight(); y++) {
-				_board[x][y].addListener(listener);
+	
+	// Convenience methods for (de)registering spot listeners.
+	
+	@Override
+	public void addSpotListener(Listener spot_listener) {
+		for (int x=0; x<getSpotWidth(); x++) {
+			for (int y=0; y<getSpotHeight(); y++) {
+				_board[x][y].addListener(spot_listener);
 			}
 		}
-		
 	}
-	public void removeListener(Listener listener) {
-		for (int x=0; x<getWidth(); x++) {
-			for (int y=0; y<getHeight(); y++) {
-				_board[x][y].removeListener(listener);
+	
+	@Override
+	public void removeSpotListener(Listener spot_listener) {
+		for (int x=0; x<getSpotWidth(); x++) {
+			for (int y=0; y<getSpotHeight(); y++) {
+				_board[x][y].removeListener(spot_listener);
 			}
 		}
 	}
 
 	@Override
 	public Iterator<Nought> iterator() {
-
 		return new NoughtBoard_Iterator(this);
-
 	}
 
 }
+

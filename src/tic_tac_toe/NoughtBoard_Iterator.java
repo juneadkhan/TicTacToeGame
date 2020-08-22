@@ -1,32 +1,39 @@
 package tic_tac_toe;
 
+
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class NoughtBoard_Iterator implements Iterator<Nought> {
+
 	private NoughtBoard _board;
 	int _x;
 	int _y;
-
+	
 	public NoughtBoard_Iterator(NoughtBoard board) {
 		_board = board;
 		_x = 0;
 		_y = 0;
 	}
 
+	@Override
 	public boolean hasNext() {
-
-		return (_y < _board.getHeight());
+		return (_y < _board.getSpotHeight());
 	}
 
+	@Override
 	public Nought next() {
-		Nought tempNought = _board.getAt(_x, _y);
-		if (_x < _board.getWidth() - 1) {
+		if (!hasNext()) {
+			throw new NoSuchElementException();
+		}
+		Nought s = _board.getSpotAt(_x, _y);
+		if (_x < _board.getSpotWidth()-1) {
 			_x++;
 		} else {
 			_x = 0;
 			_y++;
 		}
-		return tempNought;
+		return s;
 	}
 
 }

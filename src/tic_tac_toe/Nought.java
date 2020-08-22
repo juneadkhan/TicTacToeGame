@@ -12,6 +12,8 @@ public interface Nought {
 	public boolean isEmpty();
 	NoughtBoard getBoard();
 
+	void trigger_update();		
+
 	
 	void addListener(Listener l);
 	void removeListener(Listener l);

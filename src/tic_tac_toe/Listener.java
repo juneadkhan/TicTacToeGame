@@ -1,8 +1,15 @@
 package tic_tac_toe;
 
+/*
+ * SpotListener
+ * 
+ * Listener interface supported by Spot to report click, enter, and exit events.
+ * 
+ */
+
 public interface Listener {
 
-	void clicked(Nought n);
-	void entered(Nought n);
-	void exited(Nought n);
+	void clicked(Nought spot);
+	void entered(Nought spot);
+	void exited(Nought spot);
 }

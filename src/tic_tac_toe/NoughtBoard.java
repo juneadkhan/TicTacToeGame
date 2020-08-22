@@ -3,21 +3,17 @@ package tic_tac_toe;
 import java.util.Iterator;
 
 public interface NoughtBoard extends Iterable<Nought> {
-	
-	int getWidth();
+
+		int getSpotWidth();
 	 
-	int getHeight();
+		int getSpotHeight();
 
-	Nought getAt(int x, int y);
-	
-	void addListener(Listener listener);
-	
-	void removeListener(Listener listener);
-	
-	Iterator<Nought> iterator();
+		Nought getSpotAt(int x, int y);
 
+		void addSpotListener(Listener listener);
 
+		void removeSpotListener(Listener listener);
 
+		Iterator<Nought> iterator();
 
-
-}
+	}

@@ -21,10 +21,13 @@ public class GameWidget_Logic  extends JPanel implements ActionListener, Listene
 	
 	private Player _nextPlayer;	/* Identifies who has next turn. */
 
+	private static final Color DEFAULT_BACKGROUND_LIGHT = new Color(0.8f, 0.8f, 0.8f);
+	private static final Color DEFAULT_BACKGROUND_DARK = new Color(0.5f, 0.5f, 0.5f); //was.5
+	
 
 public GameWidget_Logic() {
 		
-		//Creates the NoughtBoard_UI Element and message on JLabel
+		//Creates the NoughtBoard_UI and message on JLabel
 		_board = new NoughtBoard_UI(3,3);
 		_message = new JLabel();
 		
@@ -44,7 +47,8 @@ public GameWidget_Logic() {
 		//Ensures the reset panel is at the bottom of the layout
 		add(resetMessagePanel, BorderLayout.SOUTH);
 
-		_board.addListener(this);
+		_board.addSpotListener(this);
+
 
 		resetGame();
 	}
@@ -179,11 +183,11 @@ public GameWidget_Logic() {
 
 			for (int y = 0; y < 3; y++) {
 
-				if (_board.getAt(x, y).getColor() == Color.WHITE) {
+				if (_board.getSpotAt(x, y).getColor() == Color.WHITE) {
 					countWhites++;
 				}
 
-				else if (_board.getAt(x, y).getColor() == Color.BLACK && (_board.getAt(x, y).isEmpty() == false)) {
+				else if (_board.getSpotAt(x, y).getColor() == Color.BLACK && (_board.getSpotAt(x, y).isEmpty() == false)) {
 
 					countBlacks++;
 				}
@@ -227,16 +231,16 @@ public boolean checkWin() {
 			
 			for (int y = 0; y < 3; y++) {
 				
-				if (_board.getAt(x, y).getColor() == Color.WHITE) {
+				if (_board.getSpotAt(x, y).getColor() == Color.WHITE) {
 					//TODO For DEBUGGING Purposes - remove on completiton
-					System.out.println("Grid Coordinates = X: " + _board.getAt(x, y).getX()
-							+ " Y: " + _board.getAt(x, y).getY());
+					System.out.println("Grid Coordinates = X: " + _board.getSpotAt(x, y).getX()
+							+ " Y: " + _board.getSpotAt(x, y).getY());
 					countWhites++;
 				}
 				
-				else if (_board.getAt(x, y).getColor() == Color.BLACK && (_board.getAt(x, y).isEmpty() == false)) {
-					System.out.println("Grid Coordinates = X: " + _board.getAt(x, y).getX()
-							+ " Y: " + _board.getAt(x, y).getY());
+				else if (_board.getSpotAt(x, y).getColor() == Color.BLACK && (_board.getSpotAt(x, y).isEmpty() == false)) {
+					System.out.println("Grid Coordinates = X: " + _board.getSpotAt(x, y).getX()
+							+ " Y: " + _board.getSpotAt(x, y).getY());
 					countBlacks++;
 				}
 				
@@ -268,15 +272,15 @@ public boolean checkWin() {
 
 			for (int x = 0; x < 3; x++) {
 				
-				if (_board.getAt(x, y).getColor() == Color.WHITE  && (_board.getAt(x, y).isEmpty() == false)) {
-					System.out.println("Grid Coordinates = X: " + _board.getAt(x, y).getX()
-							+ " Y: " + _board.getAt(x, y).getY());
+				if (_board.getSpotAt(x, y).getColor() == Color.WHITE  && (_board.getSpotAt(x, y).isEmpty() == false)) {
+					System.out.println("Grid Coordinates = X: " + _board.getSpotAt(x, y).getX()
+							+ " Y: " + _board.getSpotAt(x, y).getY());
 					countWhites++;
 				}
 				
-				else if (_board.getAt(x, y).getColor() == Color.BLACK && (_board.getAt(x, y).isEmpty() == false)) {
-					System.out.println("Grid Coordinates = X: " + _board.getAt(x, y).getX()
-							+ " Y: " + _board.getAt(x, y).getY());
+				else if (_board.getSpotAt(x, y).getColor() == Color.BLACK && (_board.getSpotAt(x, y).isEmpty() == false)) {
+					System.out.println("Grid Coordinates = X: " + _board.getSpotAt(x, y).getX()
+							+ " Y: " + _board.getSpotAt(x, y).getY());
 					countBlacks++;
 				}
 				
@@ -305,18 +309,18 @@ public boolean checkWin() {
 		//LOGIC FOR DETERMINING DIAGONAL RIGHT WIN
 		for (int i = 0, j = 2; i < 3; i++, j--) {
 			
-			System.out.println("Spot Colour at Position: " + _board.getAt(i, j).getX()
-					+ " Y: " + _board.getAt(i, j).getY() + "  is: "
-				+ _board.getAt(i, j).getColor());
+			System.out.println("Spot Colour at Position: " + _board.getSpotAt(i, j).getX()
+					+ " Y: " + _board.getSpotAt(i, j).getY() + "  is: "
+				+ _board.getSpotAt(i, j).getColor());
 
 			
-			if (_board.getAt(i, j).getColor() == Color.WHITE  && (_board.getAt(i, j).isEmpty() == false)) {
-				System.out.println("Grid Coordinates = X: " + _board.getAt(i, j).getX()
-						+ " Y: " + _board.getAt(i, j).getY());
+			if (_board.getSpotAt(i, j).getColor() == Color.WHITE  && (_board.getSpotAt(i, j).isEmpty() == false)) {
+				System.out.println("Grid Coordinates = X: " + _board.getSpotAt(i, j).getX()
+						+ " Y: " + _board.getSpotAt(i, j).getY());
 				countWhites++;
 			}
 			
-			else if (_board.getAt(i, j).getColor() == Color.BLACK && (_board.getAt(i, j).isEmpty() == false)) {
+			else if (_board.getSpotAt(i, j).getColor() == Color.BLACK && (_board.getSpotAt(i, j).isEmpty() == false)) {
 				countBlacks++;
 			}
 		}
@@ -334,10 +338,10 @@ public boolean checkWin() {
 		
 		//LOGIC FOR DETERMINING DIAGONAL LEFT WIN
 		for (int i = 3 - 1, j = 3 - 1; i >= 0; i--, j--) {
-			if (_board.getAt(i, j).getColor() == Color.WHITE  && (_board.getAt(i, j).isEmpty() == false)) {
+			if (_board.getSpotAt(i, j).getColor() == Color.WHITE  && (_board.getSpotAt(i, j).isEmpty() == false)) {
 				countWhites++;
 			}
-			else if (_board.getAt(i, j).getColor() == Color.BLACK && (_board.getAt(i, j).isEmpty() == false)) {
+			else if (_board.getSpotAt(i, j).getColor() == Color.BLACK && (_board.getSpotAt(i, j).isEmpty() == false)) {
 				countBlacks++;
 		}
 		}
@@ -355,3 +359,4 @@ public boolean checkWin() {
 	
 
 }
+	
